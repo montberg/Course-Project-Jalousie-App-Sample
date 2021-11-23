@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProductSpecify">
+
+    <ImageView
+        android:id="@+id/previewImage"
+        android:layout_width="match_parent"
+        android:layout_height="220dp" />
+
+    <TextView
+        android:id="@+id/nameField"
+        style="@style/productItemBigText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/previewImage"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:text="" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/productItemSmallText"
+        android:layout_marginHorizontal="20dp"
+        android:text=""
+        android:layout_below="@+id/nameField"
+        android:id="@+id/priceField"/>
+
+    <EditText
+        android:id="@+id/widthField"
+        style="@style/inputfieldstyle"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@id/priceField"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/inputfieldstyle"
+        android:maxLines="1"
+        android:inputType="number"
+        android:hint="Ширина"
+        android:textColorHint="@color/transparenthint" />
+
+    <EditText
+        android:id="@+id/heightField"
+        style="@style/inputfieldstyle"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@id/widthField"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/inputfieldstyle"
+        android:hint="Высота"
+        android:inputType="number"
+        android:maxLines="1"
+        android:textColorHint="@color/transparenthint" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heightField"
+        android:layout_margin="10dp"
+        android:text="Итоговая цена:"
+        android:id="@+id/finalPriceField"
+        android:textAppearance="@style/productItemBigText" />
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/buttonAddToCart"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:elevation="5dp"
+        android:layout_below="@id/finalPriceField"
+        android:layout_alignParentEnd="true"
+        app:mrl_rippleOverlay="true"
+        app:mrl_rippleRoundedCorners="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/btnaddtocart"
+            android:layout_height="55dp"
+            android:text="Добавить в корзину" />
+    </com.balysv.materialripple.MaterialRippleLayout>
+</RelativeLayout>

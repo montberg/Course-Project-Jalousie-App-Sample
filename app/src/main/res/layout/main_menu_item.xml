@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        >
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="wrap_content"
+            app:mrl_rippleOverlay="true"
+            app:mrl_rippleRoundedCorners="30dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/mainmenuitem"
+            android:elevation="4dp"
+            >
+        <RelativeLayout
+            android:id="@+id/imageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/main_menu_item_style"
+            android:elevation="3dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/previewImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="100dp"
+                app:riv_corner_radius_top_left="30dp"
+                app:riv_corner_radius_top_right="30dp"
+                android:background="@drawable/main_menu_image_style"
+                android:contentDescription="Background Image"
+                android:scaleType="centerCrop" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="210dp"
+                android:layout_marginStart="20dp"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/textLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/mainMenuBigText" />
+
+                <TextView
+                    android:id="@+id/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textLarge"
+                    android:textAppearance="@style/mainMenuSmallText"
+                    android:gravity="start"/>
+
+            </RelativeLayout>
+        </RelativeLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>
+    </RelativeLayout>
+</FrameLayout>

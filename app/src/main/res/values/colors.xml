@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="transparent">#80000000</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="purple_200">#80FFFFFF</color>
+    <color name="transparenthint">#80FFFFFF</color>
+    <color name="inputfieldcolor">#3C3E57</color>
+    <color name="buttoncolor">#0177FB</color>
+    <color name="background_color">#1E1D2B</color>
+    <color name="accent">#FFB366</color>
+</resources>

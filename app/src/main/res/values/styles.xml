@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="inputfieldstyle">
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="paddingStart">20dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/montserratmedium</item>
+        <item name="android:background">@drawable/inputfieldstyle</item>
+    </style>
+
+    <style name="alertdialogstyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">@style/productItemSmallText</item>
+        <item name="android:textSize">20sp</item>
+        <item name="background">@drawable/alert_style</item>
+        <item name="backgroundColor">@color/inputfieldcolor</item>
+        <item name="android:windowBackground">@drawable/alert_style</item>
+        <item name="colorPrimary">@color/white</item>
+    </style>
+
+    <style name="buttons_style" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">17sp</item>
+        <item name="fontFamily">@font/montserratbold</item>
+        <item name="android:background">@drawable/loginbutton</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:buttonStyle">@style/buttons_style</item>
+        <item name="android:windowBackground">@drawable/app_theme</item>
+    </style>
+
+    <style name="mainMenuBigText">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/montserratmedium</item>
+    </style>
+
+    <style name="mainMenuSmallText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/montserratlight</item>
+    </style>
+
+
+    <style name="productItemBigText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/montserratlight</item>
+    </style>
+
+    <style name="productItemSmallText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/montserratthin</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+</resources>

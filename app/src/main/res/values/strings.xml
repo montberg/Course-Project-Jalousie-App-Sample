@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">JaluziApp</string>
+    <string name="SERVER_URL">http://192.168.0.105/</string>
+    <string name="SERVER_GET_USER">http://192.168.0.105/get_user.php</string>
+    <string name="SERVER_GET_ALL_PRODUCTS">http://192.168.0.105/get_all_products.php</string>
+    <string name="SERVER_GET_PRODUCT_INFO">http://192.168.0.105/get_product_info.php</string>
+</resources>

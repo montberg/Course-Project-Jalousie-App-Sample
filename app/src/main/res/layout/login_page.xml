@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".LoginActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView3"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextLogin"
+                style="@style/inputfieldstyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/inputfieldstyle"
+                android:focusable="true"
+                android:hint="Логин"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/transparenthint" />
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                style="@style/inputfieldstyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginVertical="20dp"
+                android:focusable="true"
+                android:hint="Пароль"
+                android:inputType="textPassword"
+                android:textColorHint="@color/transparenthint" />
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                app:mrl_rippleOverlay="true"
+                app:mrl_rippleRoundedCorners="30dp">
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="130dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:elevation="4dp"
+                android:text="Вход"
+                />
+            </com.balysv.materialripple.MaterialRippleLayout>
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="217dp"
+            android:layout_marginBottom="20dp"
+            app:srcCompat="@drawable/logo" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:text="Нет аккаунта? Регистрация"
+        android:visibility="gone"
+        android:textAppearance="@style/productItemSmallText" />
+
+</RelativeLayout>
