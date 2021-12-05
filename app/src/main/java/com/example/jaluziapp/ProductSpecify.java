@@ -2,10 +2,14 @@ package com.example.jaluziapp;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,43 +63,38 @@ public class ProductSpecify extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        if(p!=null){
-            widthField.setText("123");
-            heightField.setText("123");
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        height = 0;
-        width = 0;
+
 
         setContentView(R.layout.activity_product_specify);
         image = findViewById(R.id.previewImage);
         widthField = findViewById(R.id.widthField);
         btnaddtocart = findViewById(R.id.btnaddtocart);
         heightField = findViewById(R.id.heightField);
+        height = 0;
+        width = 0;
         addToCart = findViewById(R.id.buttonAddToCart);
         priceText = findViewById(R.id.priceField);
         nameText = findViewById(R.id.nameField);
+
         finalPriceText = findViewById(R.id.finalPriceField);
 
         extras = getIntent().getExtras();
+
         assert extras != null;
         id = extras.getInt("id");
         getProductInfo productInfo = new getProductInfo();
-        productInfo.execute(id);
+        imageUrl = extras.getString("image");
+        name = extras.getString("name");
         action = extras.getString("action");
+        index = extras.getInt("index");
         if (action.equals("edit")) {
             btnaddtocart.setText("Подтвердить");
             index = extras.getInt("index");
             p = CartClass.getCart().get(index);
             width = p.width;
             height = p.height;
-
         }
 
 
@@ -120,6 +119,7 @@ public class ProductSpecify extends AppCompatActivity {
         heightField.addTextChangedListener(tw);
         addToCart.setOnClickListener(listener(action));
         System.out.println(action);
+        productInfo.execute(id);
     }
 
     public View.OnClickListener listener(String action) {
@@ -156,9 +156,21 @@ public class ProductSpecify extends AppCompatActivity {
     public void buttonAction(String action, String finalMESSAGE){
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.WHITE);
+
+        // Initialize a new spannable string builder instance
+        SpannableStringBuilder ssBuilder = new SpannableStringBuilder(finalMESSAGE);
+
+        // Apply the text color span
+        ssBuilder.setSpan(
+                foregroundColorSpan,
+                0,
+                finalMESSAGE.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
         if (action.equals("specify")) {
             new AlertDialog.Builder(this, R.style.alertdialogstyle)
-                    .setMessage(finalMESSAGE)
+                    .setMessage(ssBuilder)
                     .setCancelable(true)
                     .setPositiveButton("Да", (dialogInterface, i) -> {
                         OrderedProduct p = new OrderedProduct(
@@ -178,21 +190,22 @@ public class ProductSpecify extends AppCompatActivity {
         }
             else if(action.equals("edit")) {
             new AlertDialog.Builder(this, R.style.alertdialogstyle)
-                    .setMessage(finalMESSAGE)
+                    .setMessage(ssBuilder)
                     .setCancelable(true)
                     .setPositiveButton("Да", (dialogInterface, i) -> {
                         OrderedProduct p = new OrderedProduct(
-                                extras.getInt("id"),
+                                id,
                                 Integer.parseInt(widthField.getText().toString()),
                                 Integer.parseInt(heightField.getText().toString()),
                                 date,
                                 currentPrice,
-                                extras.getString("image"),
-                                extras.getString("name"),
+                                imageUrl,
+                                name,
                                 thisProduct.type_price_multiplier);
-                        System.out.println("currdate: " + date);
+                        System.out.println("currname: " + name);
+                        System.out.println("currimage: " + imageUrl);
                         CartClass.setProduct(extras.getInt("index"), p);
-                        Toast.makeText(ProductSpecify.this, "Изменено ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProductSpecify.this, "Изменено", Toast.LENGTH_LONG).show();
                         finish();
                     }).setNegativeButton("Отмена", null).show();
             }
@@ -244,20 +257,18 @@ class getProductInfo extends AsyncTask<Integer, Void, Product> {
         protected void onPostExecute(Product product) {
             super.onPostExecute(product);
             pDialog.dismiss();
-
             if(product!=null){
                 thisProduct = product;
                 Picasso.get().load(ProductSpecify.this.getString(R.string.SERVER_URL) + product.image).into(image);
                 if(p!=null){
-                    widthField.setHint(width);
-                    heightField.setHint(height);
+                    //widthField.setHint(p.width);
+                    //heightField.setHint(p.height);
                 }else {
                     widthField.setHint("Ширина до " + product.max_width + " мм");
                     heightField.setHint("Высота до " + product.max_height + " мм");
                 }
                 priceText.setText("Цена за кв м: " + product.material_price);
                 nameText.setText(product.name);
-
             }
         }
     }

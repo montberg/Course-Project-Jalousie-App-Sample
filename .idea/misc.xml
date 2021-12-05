@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Kurs3Project/app/src/main/res/layout/cart_product_item.xml" value="0.25" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/layout/product_item.xml" value="0.25" />
         <entry key="..\:/Users/mikkel/.gradle/caches/transforms-3/25012fcc08d4c5cf5a2844c1a21a6fbe/transformed/material-1.4.0/res/drawable/design_fab_background.xml" value="0.3828125" />
         <entry key="..\:/Users/mikkel/Desktop/ucheba/kurs3/JaluziApp2/app/src/main/res/drawable/background.xml" value="0.3828125" />
         <entry key="..\:/Users/mikkel/Desktop/ucheba/kurs3/JaluziApp2/app/src/main/res/drawable/inputfieldstyle.xml" value="0.3828125" />

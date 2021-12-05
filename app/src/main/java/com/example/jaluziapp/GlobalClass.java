@@ -3,7 +3,7 @@ package com.example.jaluziapp;
 import java.util.ArrayList;
 
 class CartClass {
-    private static ArrayList<OrderedProduct> cart = new ArrayList<>();
+    private static ArrayList<OrderedProduct> cart = new ArrayList<OrderedProduct>();
 
     public static void addToCart(OrderedProduct p){
         cart.add(p);

@@ -21,13 +21,4 @@ public class OrderedProduct{
         this.name = name;
         this.type_price_multiplier = type_price_multiplier;
     }
-    public OrderedProduct(){
-        this.productID = -1;
-        this.width = -1;
-        this.height = -1;
-        this.date = null;
-        this.price = 0;
-        this.image = null;
-        this.name = null;
-    }
 }

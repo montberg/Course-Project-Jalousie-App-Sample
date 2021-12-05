@@ -37,7 +37,7 @@ public class CartListAdaper extends RecyclerView.Adapter<CartListAdaper.ViewHold
     public void onBindViewHolder(CartListAdaper.ViewHolder holder, int position) {
         OrderedProduct currentProduct = dataSet.get(position);
         Picasso.get().load(context.getString(R.string.SERVER_URL) + currentProduct.image).into(holder.getPreviewView());
-        holder.getNameView().setText(currentProduct.name);
+        holder.getNameView().setText(String.valueOf(currentProduct.name));
         holder.getPriceView().setText(String.valueOf(currentProduct.price));
     }
 
@@ -65,7 +65,6 @@ public class CartListAdaper extends RecyclerView.Adapter<CartListAdaper.ViewHold
 
         public TextView getNameView(){
             return nameView;
-
         }
         public TextView getPriceView(){
             return priceView;
@@ -77,14 +76,14 @@ public class CartListAdaper extends RecyclerView.Adapter<CartListAdaper.ViewHold
             Intent intent = new Intent(context, ProductSpecify.class);
             intent.putExtra("action", "edit");
             intent.putExtra("id", current.productID);
-            //intent.putExtra("width", current.width);
-            //intent.putExtra("height", current.height);
-            //intent.putExtra("date", current.date);
-            //intent.putExtra("price", current.price);
-            //intent.putExtra("image", current.image);
-            //intent.putExtra("name", current.name);
-            //intent.putExtra("index", getLayoutPosition());
-            //intent.putExtra("mul", current.type_price_multiplier);
+            intent.putExtra("width", current.width);
+            intent.putExtra("height", current.height);
+            intent.putExtra("date", current.date);
+            intent.putExtra("price", current.price);
+            intent.putExtra("image", current.image);
+            intent.putExtra("name", current.name);
+            intent.putExtra("index", getLayoutPosition());
+            intent.putExtra("mul", current.type_price_multiplier);
             context.startActivity(intent);
         };
     }

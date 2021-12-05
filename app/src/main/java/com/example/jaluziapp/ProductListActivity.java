@@ -43,29 +43,55 @@ public class ProductListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        System.out.println("12344 onresume");
         products.clear();
         getProductList getProductListTask = new getProductList(this);
         getProductListTask.execute(currentProductContext[0]);
         priceUpdate();
+
         adapter.notifyDataSetChanged();
     }
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        System.out.println("12344 onrestart");
+        priceUpdate();
+    }
     public static void priceUpdate(){
-        priceString.setText(String.valueOf("Итого: " + CartClass.getPrice()+ " руб."));
+        priceString.setText("Итого: " + CartClass.getPrice()+ " руб.");
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        System.out.println("12344 onstart");
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        System.out.println("12344 onstop");
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        System.out.println("12344 onpause");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        System.out.println("12344 ondestroy");
         if(currentProductContext[0]==100){
             currentProductContext[0] = currentProductContext[1];
             currentProductContext[1] = -1;
         }
+        priceUpdate();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("12344 oncreate");
         setContentView(R.layout.product_list);
         if(products!=null) products.clear();
         Intent intent = getIntent();
@@ -135,17 +161,20 @@ public class ProductListActivity extends AppCompatActivity {
         else setTitle("Ошибка");
 
         if(currentProductContext[0]==100) {
-            recyclerView.setAdapter(cartadapter);
-            cartProducts.clear();
-            cartProducts.addAll(CartClass.getCart());
-            adapter.notifyDataSetChanged();
-        }else {
+           updateCart(recyclerView);
+        }else{
             recyclerView.setAdapter(adapter);
             getProductList getProductListTask = new getProductList(this);
             getProductListTask.execute(currentProductContext[0]);
         }
     }
 
+    private void updateCart(RecyclerView view){
+        view.setAdapter(cartadapter);
+        cartProducts.clear();
+        cartProducts.addAll(CartClass.getCart());
+        adapter.notifyDataSetChanged();
+    }
     static class getProductList extends AsyncTask<Integer, Void, ArrayList<Product>>{
 
         Context context;
