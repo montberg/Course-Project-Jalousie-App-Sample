@@ -54,6 +54,12 @@
         <item name="android:fontFamily">@font/montserratlight</item>
     </style>
 
+    <style name="titleStyle">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/montserratbold</item>
+    </style>
+
     <style name="productItemSmallText">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/white</item>

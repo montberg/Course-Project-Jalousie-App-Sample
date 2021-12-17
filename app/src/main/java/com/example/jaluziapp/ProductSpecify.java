@@ -2,6 +2,7 @@ package com.example.jaluziapp;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,7 +51,6 @@ public class ProductSpecify extends AppCompatActivity {
     int productid;
     int width;
     int height;
-    Date date;
     int price;
     String imageUrl;
     String name;
@@ -77,11 +77,9 @@ public class ProductSpecify extends AppCompatActivity {
         addToCart = findViewById(R.id.buttonAddToCart);
         priceText = findViewById(R.id.priceField);
         nameText = findViewById(R.id.nameField);
-
         finalPriceText = findViewById(R.id.finalPriceField);
 
         extras = getIntent().getExtras();
-
         assert extras != null;
         id = extras.getInt("id");
         getProductInfo productInfo = new getProductInfo();
@@ -155,7 +153,6 @@ public class ProductSpecify extends AppCompatActivity {
     }
     public void buttonAction(String action, String finalMESSAGE){
         long millis = System.currentTimeMillis();
-        java.sql.Date date = new java.sql.Date(millis);
         ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.WHITE);
 
         // Initialize a new spannable string builder instance
@@ -177,14 +174,11 @@ public class ProductSpecify extends AppCompatActivity {
                                 thisProduct.id,
                                 Integer.parseInt(widthField.getText().toString()),
                                 Integer.parseInt(heightField.getText().toString()),
-                                date,
                                 currentPrice,
                                 thisProduct.image,
                                 thisProduct.name,
                                 thisProduct.type_price_multiplier);
-                        System.out.println("currdate: " + date);
                         CartClass.getCart().add(p);
-                        Toast.makeText(ProductSpecify.this, "Кол-во товаров в корзине равно " + CartClass.getCart().size(), Toast.LENGTH_LONG).show();
                         finish();
                     }).setNegativeButton("Отмена", null).show();
         }
@@ -197,7 +191,6 @@ public class ProductSpecify extends AppCompatActivity {
                                 id,
                                 Integer.parseInt(widthField.getText().toString()),
                                 Integer.parseInt(heightField.getText().toString()),
-                                date,
                                 currentPrice,
                                 imageUrl,
                                 name,

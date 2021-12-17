@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".RegisterActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:theme="@style/ToolbarTheme"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/inputfieldcolor"
+        app:titleTextColor="@color/white"
+        android:elevation="4dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@id/my_toolbar"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            >
+            <EditText
+                android:id="@+id/editTextFullName"
+                style="@style/inputfieldstyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/title"
+                android:background="@drawable/inputfieldstyle"
+                android:focusable="true"
+                android:hint="ФИО"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/transparenthint" />
+            <EditText
+                android:id="@+id/editTextCity"
+                style="@style/inputfieldstyle"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@id/editTextFullName"
+                android:background="@drawable/inputfieldstyle"
+                android:focusable="true"
+                android:hint="Город"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/transparenthint" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:id="@+id/linearLayout">
+                <EditText
+                    android:id="@+id/editTextStreet"
+                    style="@style/inputfieldstyle"
+                    android:layout_width="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:layout_below="@id/editTextCity"
+                    android:background="@drawable/inputfieldstyle"
+                    android:focusable="true"
+                    android:hint="Улица"
+                    android:inputType="text"
+                    android:textColorHint="@color/transparenthint" />
+                <EditText
+                    android:id="@+id/editTextHouseNumber"
+                    style="@style/inputfieldstyle"
+                    android:layout_width="match_parent"
+
+                    android:layout_weight="2"
+                    android:layout_height="55dp"
+                    android:layout_below="@id/editTextCity"
+                    android:background="@drawable/inputfieldstyle"
+                    android:focusable="true"
+                    android:hint="Дом"
+                    android:inputType="numberDecimal"
+                    android:textColorHint="@color/transparenthint" />
+            </LinearLayout>
+            <EditText
+                android:id="@+id/editTextIndex"
+                android:layout_marginTop="10dp"
+                style="@style/inputfieldstyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@drawable/inputfieldstyle"
+                android:focusable="true"
+                android:hint="Индекс"
+                android:inputType="numberDecimal"
+                android:textColorHint="@color/transparenthint" />
+            <EditText
+                android:id="@+id/editTextPassportNumber"
+                android:layout_marginTop="10dp"
+                style="@style/inputfieldstyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@id/editTextFullName"
+                android:background="@drawable/inputfieldstyle"
+                android:focusable="true"
+                android:hint="Номер паспорта"
+                android:inputType="numberDecimal"
+                android:textColorHint="@color/transparenthint" />
+            <EditText
+                android:id="@+id/editTextPassportSerie"
+                style="@style/inputfieldstyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/editTextFullName"
+                android:background="@drawable/inputfieldstyle"
+                android:focusable="true"
+                android:hint="Серия паспорта"
+                android:inputType="numberDecimal"
+                android:textColorHint="@color/transparenthint" />
+
+            <TextView
+                android:id="@+id/editTextDateOfIssue"
+                android:layout_marginTop="10dp"
+                style="@style/inputfieldstyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@id/editTextFullName"
+                android:background="@drawable/inputfieldstyle"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:hint="Дата выдачи"
+                android:inputType="date"
+                android:textColorHint="@color/transparenthint" />
+            <TextView
+                android:id="@+id/editTextBirthDay"
+                style="@style/inputfieldstyle"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="55dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:layout_below="@id/editTextFullName"
+                android:background="@drawable/inputfieldstyle"
+                android:hint="Дата рождения"
+                android:inputType="date"
+                android:textColorHint="@color/transparenthint" />
+
+            <EditText
+                android:id="@+id/editTextLogin"
+                android:layout_marginTop="10dp"
+                style="@style/inputfieldstyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@id/editTextFullName"
+                android:background="@drawable/inputfieldstyle"
+                android:focusable="true"
+                android:hint="Логин"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/transparenthint" />
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                style="@style/inputfieldstyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/editTextFullName"
+                android:background="@drawable/inputfieldstyle"
+                android:focusable="true"
+                android:hint="Пароль"
+                android:inputType="textPassword"
+                android:textColorHint="@color/transparenthint" />
+            <EditText
+                android:id="@+id/editTextPasswordRepeat"
+                style="@style/inputfieldstyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@id/editTextFullName"
+                android:background="@drawable/inputfieldstyle"
+                android:focusable="true"
+                android:hint="Повторите пароль"
+                android:layout_marginTop="10dp"
+                android:inputType="textPassword"
+                android:textColorHint="@color/transparenthint" />
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:layout_width="wrap_content"
+                android:id="@+id/buttonRegister"
+                app:mrl_rippleOverlay="true"
+                app:mrl_rippleRoundedCorners="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Зарегестрироваться"/>
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

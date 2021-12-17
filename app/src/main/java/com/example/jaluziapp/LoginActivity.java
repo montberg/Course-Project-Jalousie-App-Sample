@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,12 +24,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class LoginActivity extends AppCompatActivity {
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -36,25 +36,22 @@ public class LoginActivity extends AppCompatActivity {
         Button loginButton = findViewById(R.id.loginButton);
         EditText loginText = findViewById(R.id.editTextLogin);
         EditText passwordText = findViewById(R.id.editTextPassword);
-
+        TextView register = findViewById(R.id.register);
         View.OnClickListener loginBtnListener = view -> {
             if(loginText.getText().toString().isEmpty()) loginText.setError("Введите логин!");
-
             if(passwordText.getText().toString().isEmpty()) passwordText.setError("Введите пароль!");
-
             if(!loginText.getText().toString().isEmpty() && !passwordText.getText().toString().isEmpty()){
                 getUserData getUserDataTask = new getUserData(this);
-
-                getUserDataTask.execute(loginText.getText().toString(), getHash(passwordText.getText().toString()));
+                getUserDataTask.execute(loginText.getText().toString(), GlobalClass.getHash(passwordText.getText().toString()));
             }
         };
         this.getString(R.string.SERVER_GET_ALL_PRODUCTS);
+        View.OnClickListener registerListener = view -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        };
         loginButton.setOnClickListener(loginBtnListener);
-    }
-
-    protected String getHash(String password){
-        return DigestUtils
-                .md5Hex(password);
+        register.setOnClickListener(registerListener);
     }
 }
 
@@ -102,9 +99,9 @@ class getUserData extends AsyncTask<String, Void, UserDataResponse> {
                 ObjectMapper mapper = new ObjectMapper();
                 Map<String,Object> map = mapper.readValue(response.toString(), Map.class);
                 map.get("message");
-
-                System.out.println(map.get("code").toString());
-                System.out.println(map.get("message").toString());
+                GlobalClass.setUserId(Integer.parseInt(Objects.requireNonNull(map.get("client_id")).toString()));
+                System.out.println(Objects.requireNonNull(map.get("code")).toString());
+                System.out.println(Objects.requireNonNull(map.get("message")).toString());
 
                 return new UserDataResponse(Integer.parseInt(map.get("code").toString()), map.get("message").toString());
             } else {
