@@ -39,7 +39,7 @@ class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHol
 
         Picasso.get().load(context.getString(R.string.SERVER_URL) + currentProduct.image).into(holder.getPreviewView());
         holder.getNameView().setText(currentProduct.name);
-        holder.getPriceView().setText(currentProduct.material_price);
+        holder.getPriceView().setText(currentProduct.material_price + " руб за кв м");
     }
 
     @Override

@@ -3,14 +3,33 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable-v24/check_order_status_style.xml" value="0.309375" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable/action_bar.xml" value="0.2916666666666667" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable/action_bar_layout.xml" value="0.2916666666666667" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable/alert_style.xml" value="0.3828125" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable/app_theme.xml" value="0.3828125" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable/footer_style.xml" value="0.3828125" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable/inputfieldstyle.xml" value="0.3828125" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable/loginbutton.xml" value="0.3828125" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable/main_menu_image_style.xml" value="0.3828125" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/drawable/main_menu_item_style.xml" value="0.3828125" />
         <entry key="..\:/Kurs3Project/app/src/main/res/layout-land/login_page.xml" value="0.3223958333333333" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/layout/action_bar_layout.xml" value="0.33" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/layout/activity_product_specify.xml" value="0.33" />
         <entry key="..\:/Kurs3Project/app/src/main/res/layout/activity_register.xml" value="0.2328125" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/layout/activity_user_orders.xml" value="0.36666666666666664" />
         <entry key="..\:/Kurs3Project/app/src/main/res/layout/cart_product_item.xml" value="0.25" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/layout/check_order_status_fragment.xml" value="0.25" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/layout/fragment_input_order_code.xml" value="0.37083333333333335" />
         <entry key="..\:/Kurs3Project/app/src/main/res/layout/login_page.xml" value="0.3067708333333333" />
         <entry key="..\:/Kurs3Project/app/src/main/res/layout/main_menu_item.xml" value="0.303125" />
         <entry key="..\:/Kurs3Project/app/src/main/res/layout/main_menu_list.xml" value="0.303125" />
         <entry key="..\:/Kurs3Project/app/src/main/res/layout/product_item.xml" value="0.25" />
         <entry key="..\:/Kurs3Project/app/src/main/res/layout/product_list.xml" value="0.303125" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/layout/show_order_code.xml" value="0.36666666666666664" />
+        <entry key="..\:/Kurs3Project/app/src/main/res/menu/main.xml" value="0.29322916666666665" />
         <entry key="..\:/Users/mikkel/.gradle/caches/transforms-3/25012fcc08d4c5cf5a2844c1a21a6fbe/transformed/material-1.4.0/res/drawable/design_fab_background.xml" value="0.3828125" />
         <entry key="..\:/Users/mikkel/Desktop/ucheba/kurs3/JaluziApp2/app/src/main/res/drawable/background.xml" value="0.3828125" />
         <entry key="..\:/Users/mikkel/Desktop/ucheba/kurs3/JaluziApp2/app/src/main/res/drawable/inputfieldstyle.xml" value="0.3828125" />

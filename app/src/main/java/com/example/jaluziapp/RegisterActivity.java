@@ -8,12 +8,16 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,23 +39,14 @@ import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    MaterialRippleLayout btnRegister;
     Toolbar actionBar;
-    EditText txtName;
-    EditText txtCity;
-    EditText txtStreet;
-    EditText txtHouse;
-    EditText txtIndex;
-    EditText txtPassportID;
-    EditText txtPassportSerie;
+    EditText txtName, txtCity, txtStreet, txtHouse, txtIndex, txtPassportID, txtPassportSerie;
     TextView txtDateOfIssue;
-    Date dateOfIssue;
-    TextView txtDateOfBirth;
-    Date dateOfBirth;
+    Date dateOfIssue, dateOfBirth;
+    TextView txtDateOfBirth, titleText;
+    ImageView checkStatusButton;
     int index;
-    EditText txtLogin;
-    EditText txtPassword;
-    EditText txtPasswordRepeat;
+    EditText txtLogin, txtPassword, txtPasswordRepeat;
     MaterialRippleLayout button;
     SimpleDateFormat simpleDate;
     final int DATE_PICKER_BIRTH = 0;
@@ -79,12 +74,25 @@ public class RegisterActivity extends AppCompatActivity {
         txtPasswordRepeat = findViewById(R.id.editTextPasswordRepeat);
         button = findViewById(R.id.buttonRegister);
         simpleDate =  new SimpleDateFormat("yyyy-MM-dd");
+
+
+
+
         setSupportActionBar(actionBar);
         actionBar.setNavigationOnClickListener(v -> {
             finish();
         });
-        setTitle("Регистрация");
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+
+
+
+
+
+        setTitle("Регистрация");
+
+
+
         index = 0;
         Calendar myCalendar = Calendar.getInstance();
 

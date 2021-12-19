@@ -6,4 +6,5 @@
     <string name="SERVER_GET_PRODUCT_INFO">http://192.168.0.105/get_product_info.php</string>
     <string name="SERVER_REGISTER_USER">http://192.168.0.105/register_user.php</string>
     <string name="SERVER_SEND_AN_ORDER">http://192.168.0.105/send_order.php</string>
+    <string name="SERVER_CHECK_AN_ORDER">http://192.168.0.105/check_order.php</string>
 </resources>

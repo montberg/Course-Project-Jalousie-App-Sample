@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:layout_centerInParent="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/check_order_status_style">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Введите код заказа"
+        android:textAppearance="@style/mainMenuSmallText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:id="@+id/orderCode"
+        style="@style/inputfieldstyle"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@id/text"
+        android:layout_marginTop="20dp"
+
+        android:background="@drawable/inputfieldstyle"
+        android:focusable="true"
+        android:gravity="center"
+        android:hint="Код"
+        android:textColorHint="@color/transparenthint" />
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/goToOrder"
+        android:layout_below="@+id/orderCode"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        app:mrl_rippleOverlay="true"
+        app:mrl_rippleRoundedCorners="30dp">
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Узнать статус" />
+
+    </com.balysv.materialripple.MaterialRippleLayout>
+    <TextView
+        android:id="@+id/doesnotexisttext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginVertical="20dp"
+        android:text="Заказ не существует"
+        android:textAppearance="@style/mainMenuSmallText"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/goToOrder"/>
+
+</RelativeLayout>

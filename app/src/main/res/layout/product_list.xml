@@ -55,8 +55,10 @@
             android:id="@+id/priceString1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginHorizontal="20dp"
+            android:layout_toLeftOf="@id/btnGoToCart"
             android:text=""
             android:textAppearance="@style/productItemBigText" />
     </RelativeLayout>

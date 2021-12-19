@@ -1,6 +1,6 @@
 package com.example.jaluziapp;
 
-import android.media.Image;
+
 
 public class ProductType {
     int preview;

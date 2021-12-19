@@ -2,25 +2,35 @@ package com.example.jaluziapp;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainMenu extends AppCompatActivity {
 
+    Toolbar actionBar;
+    ImageView checkStatusButton;
+    TextView titleText;
     ArrayList<ProductType> productTypes = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +38,50 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.main_menu_list);
         RecyclerView recyclerView = findViewById(R.id.productList);
 
+
+        actionBar = findViewById(R.id.my_toolbar);
+
+        setSupportActionBar(actionBar);
+        actionBar.setNavigationOnClickListener(v -> {
+            finish();
+        });
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowCustomEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setCustomView(R.layout.action_bar_layout);
+
+        checkStatusButton = (ImageView) findViewById(R.id.goCheckStatus);
+        titleText = (TextView) findViewById(R.id.titleText);
+        checkStatusButton.setOnClickListener(view -> {
+            final Dialog fbDialogue = new Dialog(this);
+            fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(0, 0, 0, 0)));
+            fbDialogue.setContentView(R.layout.check_order_status_fragment);
+            EditText orderCode = fbDialogue.findViewById(R.id.orderCode);
+            TextView existance = fbDialogue.findViewById(R.id.doesnotexisttext);
+            MaterialRippleLayout goToOrder = fbDialogue.findViewById(R.id.goToOrder);
+
+            goToOrder.setOnClickListener(view1 -> {
+                if(orderCode.getText().length()!=0){
+                CheckOrder order = new CheckOrder(this, existance);
+                order.execute(orderCode.getText().toString());
+                }else orderCode.setError("Введите код");
+            });
+            fbDialogue.setCancelable(true);
+            fbDialogue.show();
+        });
+
+
+        titleText.setText("Главное меню");
+
+
+
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
-        productTypes.add(new ProductType(R.drawable.rulon, "Рулонные", "от 700 руб"));
-        productTypes.add(new ProductType(R.drawable.plisse, "Плиссе", "от 2100 руб"));
-        productTypes.add(new ProductType(R.drawable.zebra, "Зебра", "от 1500 руб"));
-        productTypes.add(new ProductType(R.drawable.gorizont, "Горизонтальные", "от 1800 руб"));
+        productTypes.add(new ProductType(R.drawable.rulon, "Рулонные", "от 1150 руб"));
+        productTypes.add(new ProductType(R.drawable.plisse, "Плиссе", "от 3385 руб"));
+        productTypes.add(new ProductType(R.drawable.zebra, "Зебра", "от 2640 руб"));
+        productTypes.add(new ProductType(R.drawable.gorizont, "Горизонтальные", "от 1350 руб"));
         ListAdapter adapter = new ListAdapter(this, productTypes);
         recyclerView.setAdapter(adapter);
     }

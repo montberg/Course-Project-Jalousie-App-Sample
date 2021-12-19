@@ -1,9 +1,11 @@
 package com.example.jaluziapp;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,7 +20,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,30 +37,17 @@ import java.util.Date;
 import java.util.Objects;
 
 public class ProductSpecify extends AppCompatActivity {
-
-    int id;
-    String action;
-    ImageView image;
-    EditText widthField;
-    EditText heightField;
-    TextView priceText;
-    TextView nameText;
-    TextView finalPriceText;
+    String action, imageUrl, name;
+    ImageView image, checkStatusButton;
+    EditText widthField, heightField;
+    TextView priceText, nameText,finalPriceText, titleText;
     Button btnaddtocart;
     MaterialRippleLayout addToCart;
     Product thisProduct;
-    int currentPrice;
+    int currentPrice, width, height, index, id;
     Bundle extras;
-
-    int productid;
-    int width;
-    int height;
-    int price;
-    String imageUrl;
-    String name;
-    int index;
     OrderedProduct p;
-    double mul;
+    Toolbar actionBar;
 
     private boolean isEmpty(EditText etText) {
         return etText.getText().toString().trim().length() <= 0;
@@ -68,6 +59,7 @@ public class ProductSpecify extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_product_specify);
+
         image = findViewById(R.id.previewImage);
         widthField = findViewById(R.id.widthField);
         btnaddtocart = findViewById(R.id.btnaddtocart);
@@ -79,12 +71,51 @@ public class ProductSpecify extends AppCompatActivity {
         nameText = findViewById(R.id.nameField);
         finalPriceText = findViewById(R.id.finalPriceField);
 
+
+
+        actionBar = findViewById(R.id.activity_specify_toolbar);
+        setSupportActionBar(actionBar);
+        actionBar.setNavigationOnClickListener(v -> {
+            finish();
+        });
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowCustomEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setCustomView(R.layout.action_bar_layout);
+
+        checkStatusButton = (ImageView) findViewById(R.id.goCheckStatus);
+        titleText = (TextView) findViewById(R.id.titleText);
+        checkStatusButton.setOnClickListener(view -> {
+            final Dialog fbDialogue = new Dialog(this);
+            fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(0, 0, 0, 0)));
+            fbDialogue.setContentView(R.layout.check_order_status_fragment);
+            EditText orderCode = fbDialogue.findViewById(R.id.orderCode);
+            TextView existance = fbDialogue.findViewById(R.id.doesnotexisttext);
+            MaterialRippleLayout goToOrder = fbDialogue.findViewById(R.id.goToOrder);
+
+            goToOrder.setOnClickListener(view1 -> {
+                if(orderCode.getText().length()!=0){
+                    CheckOrder order = new CheckOrder(this, existance);
+                    order.execute(orderCode.getText().toString());
+                }else orderCode.setError("Введите код");
+            });
+            fbDialogue.setCancelable(true);
+            fbDialogue.show();
+        });
+
+
+
+
+
+
         extras = getIntent().getExtras();
         assert extras != null;
         id = extras.getInt("id");
         getProductInfo productInfo = new getProductInfo();
         imageUrl = extras.getString("image");
         name = extras.getString("name");
+
         action = extras.getString("action");
         index = extras.getInt("index");
         if (action.equals("edit")) {
@@ -118,6 +149,7 @@ public class ProductSpecify extends AppCompatActivity {
         addToCart.setOnClickListener(listener(action));
         System.out.println(action);
         productInfo.execute(id);
+
     }
 
     public View.OnClickListener listener(String action) {
@@ -152,7 +184,6 @@ public class ProductSpecify extends AppCompatActivity {
         };
     }
     public void buttonAction(String action, String finalMESSAGE){
-        long millis = System.currentTimeMillis();
         ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.WHITE);
 
         // Initialize a new spannable string builder instance
@@ -254,14 +285,17 @@ class getProductInfo extends AsyncTask<Integer, Void, Product> {
                 thisProduct = product;
                 Picasso.get().load(ProductSpecify.this.getString(R.string.SERVER_URL) + product.image).into(image);
                 if(p!=null){
-                    //widthField.setHint(p.width);
-                    //heightField.setHint(p.height);
+                    widthField = findViewById(R.id.widthField);
+                    heightField = findViewById(R.id.heightField);
+                    widthField.setText(Integer.toString(p.width));
+                    heightField.setText(Integer.toString(p.height));
                 }else {
                     widthField.setHint("Ширина до " + product.max_width + " мм");
                     heightField.setHint("Высота до " + product.max_height + " мм");
                 }
                 priceText.setText("Цена за кв м: " + product.material_price);
                 nameText.setText(product.name);
+                titleText.setText(product.name);
             }
         }
     }

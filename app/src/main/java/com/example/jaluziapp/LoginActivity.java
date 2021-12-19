@@ -45,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
                 getUserDataTask.execute(loginText.getText().toString(), GlobalClass.getHash(passwordText.getText().toString()));
             }
         };
-        this.getString(R.string.SERVER_GET_ALL_PRODUCTS);
         View.OnClickListener registerListener = view -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
@@ -117,7 +116,7 @@ class getUserData extends AsyncTask<String, Void, UserDataResponse> {
     protected void onPostExecute(UserDataResponse userDataResponse) {
         super.onPostExecute(userDataResponse);
         pDialog.dismiss();
-        Toast.makeText(context, userDataResponse.MESSAGE, Toast.LENGTH_LONG).show();
         if(userDataResponse.CODE == 1) context.startActivity(new Intent(context, MainMenu.class));
+        else Toast.makeText(context, userDataResponse.MESSAGE, Toast.LENGTH_LONG).show();
     }
 }

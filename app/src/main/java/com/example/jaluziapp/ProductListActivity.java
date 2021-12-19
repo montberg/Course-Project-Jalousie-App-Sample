@@ -2,14 +2,21 @@ package com.example.jaluziapp;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +36,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 public class ProductListActivity extends AppCompatActivity {
@@ -39,10 +47,12 @@ public class ProductListActivity extends AppCompatActivity {
     int[] currentProductContext;
     Button btnGoToCart;
     MaterialRippleLayout goToCart;
-    static TextView priceString;
+    static TextView priceString, titleText;
     RelativeLayout cartLayout;
     static RecyclerView recyclerView;
     static String task;
+    Toolbar actionBar;
+    ImageView checkStatusButton;
     @Override
     protected void onResume() {
         super.onResume();
@@ -57,31 +67,10 @@ public class ProductListActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        System.out.println("12344 onrestart");
-        priceUpdate();
-    }
     public static void priceUpdate(){
         priceString.setText("Итого: " + CartClass.getPrice() + " руб.");
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        System.out.println("12344 onstart");
-    }
-    @Override
-    protected void onStop(){
-        super.onStop();
-        System.out.println("12344 onstop");
-    }
-    @Override
-    protected void onPause(){
-        super.onPause();
-        System.out.println("12344 onpause");
-    }
 
     @Override
     protected void onDestroy() {
@@ -111,12 +100,40 @@ public class ProductListActivity extends AppCompatActivity {
         String title = intent.getStringExtra("title");
         currentProductContext = new int[]{-1,-1};
         //определение тулбара
-        Toolbar actionBar = findViewById(R.id.my_toolbar);
+
+
+        actionBar = findViewById(R.id.my_toolbar);
+
         setSupportActionBar(actionBar);
-        //Обработчик нажатия кнопки назад на тулбаре
         actionBar.setNavigationOnClickListener(v -> {
             finish();
         });
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowCustomEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setCustomView(R.layout.action_bar_layout);
+
+        checkStatusButton = (ImageView) findViewById(R.id.goCheckStatus);
+        titleText = (TextView) findViewById(R.id.titleText);
+        checkStatusButton.setOnClickListener(view -> {
+            final Dialog fbDialogue = new Dialog(this);
+            fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(0, 0, 0, 0)));
+            fbDialogue.setContentView(R.layout.check_order_status_fragment);
+            EditText orderCode = fbDialogue.findViewById(R.id.orderCode);
+            TextView existance = fbDialogue.findViewById(R.id.doesnotexisttext);
+            MaterialRippleLayout goToOrder = fbDialogue.findViewById(R.id.goToOrder);
+
+            goToOrder.setOnClickListener(view1 -> {
+                if(orderCode.getText().length()!=0){
+                    CheckOrder order = new CheckOrder(this, existance);
+                    order.execute(orderCode.getText().toString());
+                }else orderCode.setError("Введите код");
+            });
+            fbDialogue.setCancelable(true);
+            fbDialogue.show();
+        });
+
 
         // показываем кнопку назад
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -151,23 +168,23 @@ public class ProductListActivity extends AppCompatActivity {
         if(title != null){
             switch (title){
                 case "0":
-                    setTitle("Рулонные шторы");
+                    titleText.setText("Рулонные шторы");
                     currentProductContext[0] = 1;
                     break;
                 case "1":
-                    setTitle("Шторы плиссе");
+                    titleText.setText("Шторы плиссе");
                     currentProductContext[0] = 3;
                     break;
                 case "2":
-                    setTitle("Шторы зебра");
+                    titleText.setText("Шторы зебра");
                     currentProductContext[0] = 4;
                     break;
                 case "3":
-                    setTitle("Горизонтальные шторы");
+                    titleText.setText("Горизонтальные шторы");
                     currentProductContext[0] = 2;
                     break;
                 case "100":
-                    setTitle("Корзина");
+                    titleText.setText("Корзина");
                     currentProductContext[1] = currentProductContext[0];
                     currentProductContext[0] = 100;
                     btnGoToCart.setText("Оформить заказ");
@@ -205,23 +222,6 @@ public class ProductListActivity extends AppCompatActivity {
         priceString = findViewById(R.id.priceString1);
         recyclerView = findViewById(R.id.product_list);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     static class getProductList extends AsyncTask<Integer, Void, ArrayList<Product>>{
 
@@ -292,53 +292,89 @@ public class ProductListActivity extends AppCompatActivity {
 
 
     private static class makeAnOrderClass extends AsyncTask<Void, Void, Integer> {
-
         String jsonString;
         Context context;
         ProgressDialog pDialog;
-
+        String orderCode;
+        static ClipboardManager clipboard;
         public makeAnOrderClass(Context context ,String jsonString) {
             this.jsonString = jsonString;
             this.context = context;
         }
-
         @Override
         protected void onPreExecute() {
-
             pDialog = new ProgressDialog(context);
             pDialog.setMessage("Пожалуйста, подождите...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
         }
-
         @Override
         protected Integer doInBackground(Void... strings) {
             try
             {
             final String POST_PARAMS = "?json="+jsonString+"&client_id="+GlobalClass.getUserId();
+            System.out.println("POST PARAMS "+POST_PARAMS);
             URL obj = new URL(context.getString(R.string.SERVER_SEND_AN_ORDER)+POST_PARAMS);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("POST");
             int responseCode = con.getResponseCode();
+
+            if (responseCode == HttpURLConnection.HTTP_OK) { //success
+                BufferedReader in = new BufferedReader(new InputStreamReader(
+                        con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                System.out.println(response.toString());
+                ObjectMapper mapper = new ObjectMapper();
+                Map<String,Object> map = mapper.readValue(response.toString(), Map.class);
+                orderCode = map.get("order_code").toString();
+            }
+
             System.out.println("POST Response Code :: " + responseCode);
+
                 return responseCode;
             }
             catch (Exception e){
                 e.printStackTrace();
+                return 0;
             }
-            return null;
         }
-
         @Override
         protected void onPostExecute(Integer code) {
             pDialog.dismiss();
             if(code==200){
-                Toast.makeText(context, "Заявка создана", Toast.LENGTH_SHORT).show();
-                CartClass.getCart().clear();
-                ((Activity)context).finish();
+                final Dialog fbDialogue = new Dialog(context);
+                fbDialogue.getWindow().setBackgroundDrawable(new ColorDrawable(Color.argb(0, 0, 0, 0)));
+                fbDialogue.setContentView(R.layout.check_order_status_fragment);
+                TextView text = fbDialogue.findViewById(R.id.text);
+                text.setText("Ваш номер заказа:");
+                EditText orderCodeText = fbDialogue.findViewById(R.id.orderCode);
+                orderCodeText.setEnabled(true);
+                orderCodeText.setText(orderCode);
+                MaterialRippleLayout goToOrder = fbDialogue.findViewById(R.id.goToOrder);
+                Button dummybtn = fbDialogue.findViewById(R.id.btn);
+                dummybtn.setText("Закрыть");
+                goToOrder.setOnClickListener(view1 -> {
+                    CartClass.cleanCart();
+                    fbDialogue.dismiss();
+                    ((Activity)context).finish();
+                });
+                orderCodeText.setOnClickListener(view -> {
+                    clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("code", orderCodeText.getText().toString());
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(context, "Скопировано в буфер обмена", Toast.LENGTH_SHORT).show();
+                });
+                fbDialogue.setCancelable(false);
+                fbDialogue.show();
             }else{
-                Toast.makeText(context, "Ошибка" + code, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Ошибка " + code, Toast.LENGTH_SHORT).show();
             }
         }
     }

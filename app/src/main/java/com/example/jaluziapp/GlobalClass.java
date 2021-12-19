@@ -5,8 +5,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.util.ArrayList;
 
 class CartClass {
-    private static ArrayList<OrderedProduct> cart = new ArrayList<OrderedProduct>();
 
+    private static ArrayList<OrderedProduct> cart = new ArrayList<>();
     public static void addToCart(OrderedProduct p){
         cart.add(p);
     }
@@ -38,7 +38,6 @@ class GlobalClass{
 
     private static Integer user_id;
     public static String getHash(String password){
-        System.out.println("123545" + password);
         return DigestUtils.md5Hex(password);
     }
     public static void setUserId(Integer id){
