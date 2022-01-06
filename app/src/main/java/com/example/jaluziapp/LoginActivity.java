@@ -104,11 +104,11 @@ class getUserData extends AsyncTask<String, Void, UserDataResponse> {
 
                 return new UserDataResponse(Integer.parseInt(map.get("code").toString()), map.get("message").toString());
             } else {
-                return new UserDataResponse(0, "Ошибка подключения к серверу");
+                return new UserDataResponse(0, "Ошибка подключения к серверу 1");
             }
         }catch (IOException e) {
             e.printStackTrace();
-            return new UserDataResponse(0, "Ошибка подключения к серверу");
+            return new UserDataResponse(0, "Ошибка подключения к серверу 2");
         }
     }
 
